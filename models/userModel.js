@@ -1,3 +1,11 @@
+const fs = require("fs");
+const path = require("path");
+
+const dir = path.join(__dirname, "../data");
+if (!fs.existsSync(dir)) {
+  fs.mkdirSync(dir, { recursive: true });
+}
+
 const Datastore = require('gray-nedb');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
