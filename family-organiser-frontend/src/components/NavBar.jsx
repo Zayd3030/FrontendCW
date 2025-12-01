@@ -6,6 +6,7 @@ export default function Navbar() {
       <Link to="/" style={{ marginRight: "10px" }}>Home</Link>
       <Link to="/events" style={{ marginRight: "10px" }}>Events</Link>
       <Link to="/add-event">Add Event</Link>
+      <Link to="/register">Register</Link>
     </nav>
   );
 }
