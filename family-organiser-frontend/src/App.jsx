@@ -5,6 +5,7 @@ import Events from "./pages/Events";
 import AddEvent from "./pages/AddEvent";
 import EditEvent from "./pages/EditEvent";
 import Register from "./pages/Register";
+import Login from "./pages/Login";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/add-event" element={<AddEvent />} />
         <Route path="/edit-event/:id" element={<EditEvent />} /> 
         <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   );

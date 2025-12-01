@@ -14,31 +14,52 @@ export default function Register() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setMessage("Registering user...");
 
-    fetch("http://localhost:3002/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    })
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to register");
-        return res.json();
-      })
-      .then(() => {
-        setMessage("User registered successfully!");
-        setFormData({
-          username: "",
-          password: "",
-          familyId: "family_1",
-        });
-      })
-      .catch((err) => {
-        console.error("Register error:", err);
-        setMessage("Could not register user.");
+    // ---- Password validation ----
+    const errors = [];
+    if (formData.password.length < 6) {
+      errors.push("be at least 6 characters long");
+    }
+    if (!/\d/.test(formData.password)) {
+      errors.push("contain at least one number");
+    }
+
+    if (errors.length > 0) {
+      setMessage("Password must " + errors.join(" and ") + ".");
+      return;
+    }
+
+    try {
+      setMessage("Registering user...");
+
+      const res = await fetch("http://localhost:3002/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       });
+
+      console.log("Register response status:", res.status);
+
+      if (!res.ok) {
+        throw new Error("Failed to register");
+      }
+
+      // If we get here, registration worked
+      setMessage(
+        `User "${formData.username}" registered successfully! You can now log in.`
+      );
+
+      setFormData({
+        username: "",
+        password: "",
+        familyId: "family_1",
+      });
+    } catch (err) {
+      console.error("Register error:", err);
+      setMessage("Could not register user. Try a different username.");
+    }
   };
 
   return (
@@ -57,7 +78,8 @@ export default function Register() {
           required
         />
 
-        <br /><br />
+        <br />
+        <br />
 
         <label>Password</label>
         <input
@@ -67,8 +89,11 @@ export default function Register() {
           onChange={handleChange}
           required
         />
+        <div style={{ fontSize: "0.85rem", color: "#555", marginTop: "4px" }}>
+          Password must be at least 6 characters and include a number.
+        </div>
 
-        <br /><br />
+        <br />
 
         <label>Family ID</label>
         <input
@@ -77,13 +102,12 @@ export default function Register() {
           onChange={handleChange}
         />
 
-        <br /><br />
+        <br />
+        <br />
 
         <button type="submit">Register</button>
 
-        {message && (
-          <p style={{ marginTop: "10px" }}>{message}</p>
-        )}
+        {message && <p style={{ marginTop: "10px" }}>{message}</p>}
       </form>
     </div>
   );
