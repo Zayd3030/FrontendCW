@@ -12,6 +12,8 @@ router.get('/all-users',controller.json_users_endpoint);
 router.post('/get-family-events', controller.family_events_endpoint);
 router.post('/new-event-entry', controller.post_new_event);
 router.post('/delete-event/:id', controller.delete_event);
+router.get('/event/:id', controller.get_event_by_id);  
+router.post('/update-event/:id', controller.update_event_simple);
 
 router.use((req, res) => {
     res.status(404);

@@ -206,36 +206,21 @@ exports.update_event = (req, res) => {
 
 // Delete event
 exports.delete_event = (req, res) => {
-    const eventId = req.params.id;
-    const currentUser = req.body.username;
-    const currentFamily = req.body.userfamily;
-    console.log(eventId)
-    userDAO.lookup(currentUser, currentFamily, (err, user) => {
-        if (err || !user) return res.status(403).json({ 'message': 'Forbidden' });
-        db.getEventById(eventId).then((event) => {
-            if (!event) {
-                res.status(404).json({ 'message': 'Event not found' });
-                return;
-            }
-            if (event.organiser !== currentUser) {
-                return res.status(403).json({ 'message': 'Forbidden' });
-            }
-            db.deleteEvent(eventId).then((numDeleted) => {
-                if (numDeleted === 0) {
-                    res.status(404).json({ 'message': 'Event not found' });
-                    return;
-                }
-                res.status(202).json({ 'event deleted': numDeleted })
-            })
-                .catch((err) => {
-                    console.log('Error deleting event:', err);
-                    res.status(500).json({
-                        'message': 'Error deleting event'
-                    });
-                })
-        })
+  const eventId = req.params.id;
+
+  db.deleteEvent(eventId)
+    .then((numDeleted) => {
+      if (numDeleted === 0) {
+        return res.status(404).json({ message: "Event not found" });
+      }
+      return res.status(200).json({ success: true, deleted: numDeleted });
     })
- }
+    .catch((err) => {
+      console.error("Error deleting event:", err);
+      res.status(500).json({ message: "Error deleting event" });
+    });
+};
+
 
     // User Management Functions
     exports.show_user_management = (req, res) => {
@@ -346,4 +331,49 @@ exports.delete_event = (req, res) => {
                 res.status(500).send('Error updating event');
             });
     }
+
+    // Get a single event by ID (for editing)
+exports.get_event_by_id = (req, res) => {
+  const eventId = req.params.id;
+
+  db.getEventById(eventId)
+    .then((event) => {
+      if (!event) {
+        return res.status(404).json({ message: "Event not found" });
+      }
+      res.json(event);
+    })
+    .catch((err) => {
+      console.error("Error fetching event:", err);
+      res.status(500).json({ message: "Error retrieving event" });
+    });
+};
+
+// Simple update event for SPA (no auth checks)
+exports.update_event_simple = (req, res) => {
+  const eventId = req.params.id;
+
+  const updateData = {
+    event: req.body.event,
+    date: req.body.date,
+    startTime: req.body.startTime,
+    endTime: req.body.endTime,
+    location: req.body.location,
+    requiredItems: req.body.requiredItems,
+    organiser: req.body.organiser || "Admin1",
+    familyId: req.body.familyId || "family_1",
+  };
+
+  db.updateEvent(eventId, updateData)
+    .then((numUpdated) => {
+      if (numUpdated === 0) {
+        return res.status(404).json({ message: "Event not found" });
+      }
+      res.status(200).json({ success: true, updated: numUpdated });
+    })
+    .catch((err) => {
+      console.error("Error updating event:", err);
+      res.status(500).json({ message: "Error updating event" });
+    });
+};
 

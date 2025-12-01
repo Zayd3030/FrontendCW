@@ -43,7 +43,7 @@ const handleSubmit = (e) => {
       return res.json();
     })
     .then(() => {
-      setMessage("✅ Event added successfully!");
+      setMessage("Event added successfully!");
       setFormData({
         event: "",
         date: "",
@@ -55,7 +55,7 @@ const handleSubmit = (e) => {
     })
     .catch((err) => {
       console.error("Error:", err);
-      setMessage("❌ Could not add event.");
+      setMessage("Could not add event.");
     });
 };
 

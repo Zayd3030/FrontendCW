@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Events from "./pages/Events";
 import AddEvent from "./pages/AddEvent";
+import EditEvent from "./pages/EditEvent"; 
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/events" element={<Events />} />
         <Route path="/add-event" element={<AddEvent />} />
+        <Route path="/edit-event/:id" element={<EditEvent />} /> 
       </Routes>
     </BrowserRouter>
   );
