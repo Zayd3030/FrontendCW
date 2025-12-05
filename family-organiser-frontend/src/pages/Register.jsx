@@ -27,7 +27,7 @@ export default function Register() {
     }
 
     if (errors.length > 0) {
-      setMessage("Password must " + errors.join(" and ") + ".");
+      setMessage("❌ Password must " + errors.join(" and ") + ".");
       return;
     }
 
@@ -48,7 +48,7 @@ export default function Register() {
 
       // If we get here, registration worked
       setMessage(
-        `User "${formData.username}" registered successfully! You can now log in.`
+        `✅ User "${formData.username}" registered successfully! You can now log in.`
       );
 
       setFormData({
@@ -58,56 +58,64 @@ export default function Register() {
       });
     } catch (err) {
       console.error("Register error:", err);
-      setMessage("Could not register user. Try a different username.");
+      setMessage("❌ Could not register user. Try a different username.");
     }
   };
 
   return (
-    <div style={{ padding: "30px" }}>
+    <div className="page">
       <h1>Register</h1>
 
-      <form
-        onSubmit={handleSubmit}
-        style={{ maxWidth: "400px", marginTop: "20px" }}
-      >
-        <label>Username</label>
-        <input
-          name="username"
-          value={formData.username}
-          onChange={handleChange}
-          required
-        />
-
-        <br />
-        <br />
-
-        <label>Password</label>
-        <input
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
-        <div style={{ fontSize: "0.85rem", color: "#555", marginTop: "4px" }}>
-          Password must be at least 6 characters and include a number.
+      <form onSubmit={handleSubmit}>
+        <div className="field">
+          <label>Username</label>
+          <input
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
+            required
+          />
         </div>
 
-        <br />
+        <div className="field">
+          <label>Password</label>
+          <input
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
+          <div style={{ fontSize: "0.85rem", color: "#555", marginTop: "4px" }}>
+            Password must be at least 6 characters and include a number.
+          </div>
+        </div>
 
-        <label>Family ID</label>
-        <input
-          name="familyId"
-          value={formData.familyId}
-          onChange={handleChange}
-        />
-
-        <br />
-        <br />
+        <div className="field">
+          <label>Family ID</label>
+          <input
+            name="familyId"
+            value={formData.familyId}
+            onChange={handleChange}
+          />
+        </div>
 
         <button type="submit">Register</button>
 
-        {message && <p style={{ marginTop: "10px" }}>{message}</p>}
+        {message && (
+          <p
+            className={
+              "message " +
+              (message.startsWith("✅")
+                ? "success"
+                : message.startsWith("❌")
+                ? "error"
+                : "")
+            }
+          >
+            {message}
+          </p>
+        )}
       </form>
     </div>
   );

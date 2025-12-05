@@ -20,7 +20,7 @@ export default function AddEvent() {
   useEffect(() => {
     const stored = localStorage.getItem("user");
     if (!stored) {
-      setMessage("You must be logged in to add events.");
+      setMessage("❌ You must be logged in to add events.");
       setTimeout(() => navigate("/login"), 1000);
       return;
     }
@@ -29,7 +29,7 @@ export default function AddEvent() {
     setCurrentUser(user);
 
     if (user.userrole !== "administrator") {
-      setMessage("Only administrators can create events.");
+      setMessage("❌ Only administrators can create events.");
     }
   }, [navigate]);
 
@@ -42,12 +42,12 @@ export default function AddEvent() {
     e.preventDefault();
 
     if (!currentUser) {
-      setMessage("You must be logged in to add events.");
+      setMessage("❌ You must be logged in to add events.");
       return;
     }
 
     if (currentUser.userrole !== "administrator") {
-      setMessage("Only administrators can create events.");
+      setMessage("❌ Only administrators can create events.");
       return;
     }
 
@@ -73,7 +73,7 @@ export default function AddEvent() {
         return res.json();
       })
       .then(() => {
-        setMessage("Event added successfully!");
+        setMessage("✅ Event added successfully!");
         setFormData({
           event: "",
           date: "",
@@ -85,12 +85,12 @@ export default function AddEvent() {
       })
       .catch((err) => {
         console.error("Add event error:", err);
-        setMessage("Could not add event. Please try again.");
+        setMessage("❌ Could not add event. Please try again.");
       });
   };
 
   return (
-    <div style={{ padding: "20px" }}>
+      <div className="page">
       <h1>Add Event</h1>
 
       {currentUser && (
@@ -101,82 +101,86 @@ export default function AddEvent() {
         </p>
       )}
 
-      <form
-        onSubmit={handleSubmit}
-        style={{ maxWidth: "450px", marginTop: "20px" }}
-      >
-        <label>Event Name</label>
-        <input
-          name="event"
-          value={formData.event}
-          onChange={handleChange}
-          required
-        />
+      <form onSubmit={handleSubmit}>
+        <div className="field">
+          <label>Event Name</label>
+          <input
+            name="event"
+            value={formData.event}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-        <br />
-        <br />
+        <div className="field">
+          <label>Date</label>
+          <input
+            type="date"
+            name="date"
+            value={formData.date}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-        <label>Date</label>
-        <input
-          type="date"
-          name="date"
-          value={formData.date}
-          onChange={handleChange}
-          required
-        />
+        <div className="field">
+          <label>Start Time</label>
+          <input
+            type="time"
+            name="startTime"
+            value={formData.startTime}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-        <br />
-        <br />
+        <div className="field">
+          <label>End Time</label>
+          <input
+            type="time"
+            name="endTime"
+            value={formData.endTime}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-        <label>Start Time</label>
-        <input
-          type="time"
-          name="startTime"
-          value={formData.startTime}
-          onChange={handleChange}
-          required
-        />
+        <div className="field">
+          <label>Location</label>
+          <input
+            name="location"
+            value={formData.location}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-        <br />
-        <br />
-
-        <label>End Time</label>
-        <input
-          type="time"
-          name="endTime"
-          value={formData.endTime}
-          onChange={handleChange}
-          required
-        />
-
-        <br />
-        <br />
-
-        <label>Location</label>
-        <input
-          name="location"
-          value={formData.location}
-          onChange={handleChange}
-          required
-        />
-
-        <br />
-        <br />
-
-        <label>Items Required</label>
-        <input
-          name="requiredItems"
-          value={formData.requiredItems}
-          onChange={handleChange}
-          required
-        />
-
-        <br />
-        <br />
+        <div className="field">
+          <label>Items Required</label>
+          <input
+            name="requiredItems"
+            value={formData.requiredItems}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
         <button type="submit">Add Event</button>
 
-        {message && <p style={{ marginTop: "10px" }}>{message}</p>}
+        {message && (
+          <p
+            className={
+              "message " +
+              (message.startsWith("✅")
+                ? "success"
+                : message.startsWith("❌")
+                ? "error"
+                : "")
+            }
+          >
+            {message}
+          </p>
+        )}
       </form>
     </div>
   );

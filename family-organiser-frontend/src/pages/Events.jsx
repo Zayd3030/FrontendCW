@@ -49,7 +49,6 @@ export default function EventsPage() {
   useEffect(() => {
     const stored = localStorage.getItem("user");
 
-    // restict access if not logged in
     if (!stored) {
       setError("You must be logged in to view family events.");
       setLoading(false);
@@ -59,7 +58,6 @@ export default function EventsPage() {
     const user = JSON.parse(stored);
     setCurrentUser(user);
 
-    // fetch events for this user family
     fetch("http://localhost:3002/get-family-events", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -82,7 +80,7 @@ export default function EventsPage() {
       });
   }, []);
 
-  // Filter
+  // Filter events
   const filteredEvents = events.filter((ev) => {
     if (!searchTerm.trim()) return true;
 
@@ -99,78 +97,61 @@ export default function EventsPage() {
 
   if (error)
     return (
-      <div style={{ padding: "20px" }}>
-        <p style={{ color: "red" }}>{error}</p>
+      <div>
+        <p className="message error">{error}</p>
         <button onClick={() => navigate("/login")}>Go to Login</button>
       </div>
     );
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div className="page">
       <h1>Family Events</h1>
 
       {currentUser && (
         <p>
-          Viewing events for family: <strong>{currentUser.userfamily}</strong>
+          Viewing events for family:{" "}
+          <strong>{currentUser.userfamily}</strong>
         </p>
       )}
 
-      {/* Search box */}
-      <div style={{ margin: "15px 0" }}>
-        <label style={{ marginRight: "8px" }}>
-          Search by name, location, organiser, or date:
-        </label>
+      {/* Search bar */}
+      <div className="search-bar">
+        <label>Search events:</label>
         <input
           type="text"
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Search"
-          style={{ padding: "6px", minWidth: "280px" }}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
 
+      {/* Event List */}
       {filteredEvents.length === 0 ? (
         <p>No events match your search.</p>
       ) : (
-        filteredEvents.map((ev) => (
-          <div key={ev._id} style={{ marginBottom: "15px" }}>
-            <EventCard event={ev} />
-            {/* Only show edit / delete if organiser is this user */}
-            {currentUser && ev.organiser === currentUser.username && (
-              <>
-                <button
-                  onClick={() => navigate(`/edit-event/${ev._id}`)}
-                  style={{
-                    marginTop: "8px",
-                    marginRight: "8px",
-                    padding: "8px 12px",
-                    backgroundColor: "#007bff",
-                    color: "white",
-                    border: "none",
-                    borderRadius: "6px",
-                    cursor: "pointer",
-                  }}
-                >
-                  Edit
-                </button>
-                <button
-                  onClick={() => handleDelete(ev._id)}
-                  style={{
-                    marginTop: "8px",
-                    padding: "8px 12px",
-                    backgroundColor: "red",
-                    color: "white",
-                    border: "none",
-                    borderRadius: "6px",
-                    cursor: "pointer",
-                  }}
-                >
-                  Delete
-                </button>
-              </>
-            )}
-          </div>
-        ))
+        <div className="event-list">
+          {filteredEvents.map((ev) => (
+            <div key={ev._id}>
+              <EventCard event={ev} />
+
+              {currentUser && ev.organiser === currentUser.username && (
+                <div style={{ marginTop: "8px", display: "flex", gap: "8px" }}>
+                  <button onClick={() => navigate(`/edit-event/${ev._id}`)}>
+                    Edit
+                  </button>
+
+                  <button
+                    className="secondary"
+                    style={{ backgroundColor: "red", color: "white" }}
+                    onClick={() => handleDelete(ev._id)}
+                  >
+                    Delete
+                  </button>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
       )}
     </div>
   );

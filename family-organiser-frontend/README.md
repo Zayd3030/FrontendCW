@@ -1,16 +1,158 @@
-# React + Vite
+# 🗓️ Family Organiser – Coursework CW1
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is the **Frontend Web Development CW1**.  
+It is a **React Single Page Application (SPA)** with a **Node.js / Express backend API** and a simple **NeDB database**.  
+The system acts as a **Family Organiser** which allows users to register, log in, and manage family events.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📦 Features
 
-## React Compiler
+### 👤 User System
+- User registration with password validation  
+- Login system with localStorage session saving  
+- Each user belongs to a **specific family group**  
+- Users can only view events belonging to *their* family  
+- Only event creators can edit or delete their own events  
+- Administrators have permission to create events
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 📅 Event Management
+- Add new events with:
+  - Event name  
+  - Date  
+  - Start + end time  
+  - Location  
+  - Required items  
+- Edit existing events  
+- Delete events  
+- Events are automatically tagged with:
+  - Organiser username  
+  - Organiser family ID  
 
-## Expanding the ESLint configuration
+### 🔎 Searching & Filtering
+- Search events by:
+  - Name  
+  - Location  
+  - Organiser  
+  - Date  
+- Clean and simple UI layout  
+- Success & error messages with styled feedback  
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### ⚙️ Backend Functionality
+- REST API built using Express  
+- NeDB storage (`users.db`, `events.db`)  
+- Secure password hashing with salts  
+- Family-based access control for all endpoints  
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| **Frontend** | React (Vite), JavaScript |
+| **Backend** | Node.js, Express.js |
+| **Database** | NeDB (.db file storage) |
+| **Tools** | npm, Git, Vite |
+
+---
+
+# 🚀 Setup Instructions
+
+Follow these steps to install and run the project.
+
+---
+
+## 1️⃣ Clone the Repository
+
+```bash
+git clone https://github.com/Zayd3030/FrontendCW.git
+cd FEWD2526-cwbackend-update
+
+## 2️⃣ Install Dependencies
+Inside the backend folder, install all required dependencies:
+
+```bash
+npm install
+```
+
+This installs all necessary Node modules listed in `package.json` (including Express and CORS).
+
+### 3️⃣ Run the Backend Server
+Start the backend server locally:
+
+```bash
+node index.js
+```
+
+### 4️⃣ Set Up and Run the Frontend
+Navigate to your React frontend folder:
+
+```bash
+cd ../family-organiser-frontend
+npm install
+npm run dev
+```
+
+Vite will start a local development server, usually on:
+```
+http://localhost:5173/
+```
+
+Open that link in your browser to view your React app.  
+Ensure both servers are active:
+
+- **Backend:** http://localhost:3001  
+- **Frontend:** http://localhost:5173  
+
+If the frontend fetches data from the backend successfully then the setup is complete.
+
+### 5️⃣ Push Your Project to GitHub
+Once everything works, commit and push your code:
+
+```bash
+git add .
+git commit -m "Initial setup for Family Organiser CW1"
+git branch -M main
+git push -u origin main
+```
+
+---
+
+## 👤 Author
+
+**Zayd Hussain**  
+**Student ID: S2212398**
+
+---
+
+## ✨ Added Features
+
+This project includes extra features not explicitly required in the coursework brief:
+
+---
+
+### 🔐 Improved Authentication
+- Password validation (min 6 characters + at least one number)
+- Styled feedback messages for success / error states
+- LocalStorage session persistence for logged in users
+
+---
+
+### 👨‍👩‍👦 Family Group Enforcement
+- Users are linked to a unique **familyId**
+- Users can only view or manage events from *their own family*
+
+---
+
+### 🛠️ Event Ownership
+- All events are automatically tagged with:
+  - **Organiser username**
+  - **Organiser family ID**
+
+---
+
+### 🎨 UI/UX Enhancements
+- Global spacing and layout improvements using a `.page` wrapper
+- Styled success and error message system (`.message.success` / `.message.error`)
+

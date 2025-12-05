@@ -33,10 +33,9 @@ export default function EditEvent() {
           startTime: data.startTime || "",
           endTime: data.endTime || "",
           location: data.location || "",
-          requiredItems:
-            Array.isArray(data.requiredItems)
-              ? data.requiredItems.join(", ")
-              : data.requiredItems || "",
+          requiredItems: Array.isArray(data.requiredItems)
+            ? data.requiredItems.join(", ")
+            : data.requiredItems || "",
           organiser: data.organiser || "Admin1",
           familyId: data.familyId || "family_1",
         });
@@ -44,7 +43,7 @@ export default function EditEvent() {
       })
       .catch((err) => {
         console.error("Error loading event:", err);
-        setMessage("Could not load event details.");
+        setMessage("❌ Could not load event details.");
         setLoading(false);
       });
   }, [id]);
@@ -74,79 +73,100 @@ export default function EditEvent() {
         return res.json();
       })
       .then(() => {
-        setMessage("Event updated successfully!");
+        setMessage("✅ Event updated successfully!");
         setTimeout(() => navigate("/events"), 800);
       })
       .catch((err) => {
         console.error("Error updating event:", err);
-        setMessage("Could not update event.");
+        setMessage("❌ Could not update event.");
       });
   };
 
-  if (loading) return <p style={{ padding: 20 }}>Loading event...</p>;
+  if (loading) return <p>Loading event...</p>;
 
   return (
-    <div style={{ padding: "20px" }}>
+      <div className="page">
       <h1>Edit Event</h1>
-      <form
-        onSubmit={handleSubmit}
-        style={{ maxWidth: "500px", margin: "20px auto" }}
-      >
-        <label>Event Name</label>
-        <input
-          name="event"
-          value={formData.event}
-          onChange={handleChange}
-          required
-        />
 
-        <label>Date</label>
-        <input
-          type="date"
-          name="date"
-          value={formData.date}
-          onChange={handleChange}
-          required
-        />
+      <form onSubmit={handleSubmit}>
+        <div className="field">
+          <label>Event Name</label>
+          <input
+            name="event"
+            value={formData.event}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-        <label>Start Time</label>
-        <input
-          type="time"
-          name="startTime"
-          value={formData.startTime}
-          onChange={handleChange}
-          required
-        />
+        <div className="field">
+          <label>Date</label>
+          <input
+            type="date"
+            name="date"
+            value={formData.date}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-        <label>End Time</label>
-        <input
-          type="time"
-          name="endTime"
-          value={formData.endTime}
-          onChange={handleChange}
-          required
-        />
+        <div className="field">
+          <label>Start Time</label>
+          <input
+            type="time"
+            name="startTime"
+            value={formData.startTime}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-        <label>Location</label>
-        <input
-          name="location"
-          value={formData.location}
-          onChange={handleChange}
-          required
-        />
+        <div className="field">
+          <label>End Time</label>
+          <input
+            type="time"
+            name="endTime"
+            value={formData.endTime}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-        <label>Required Items (comma separated)</label>
-        <input
-          name="requiredItems"
-          value={formData.requiredItems}
-          onChange={handleChange}
-        />
+        <div className="field">
+          <label>Location</label>
+          <input
+            name="location"
+            value={formData.location}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-        <button type="submit" style={{ marginTop: "10px" }}>
-          Save Changes
-        </button>
+        <div className="field">
+          <label>Required Items (comma separated)</label>
+          <input
+            name="requiredItems"
+            value={formData.requiredItems}
+            onChange={handleChange}
+          />
+        </div>
 
-        {message && <p style={{ marginTop: "10px" }}>{message}</p>}
+        <button type="submit">Save Changes</button>
+
+        {message && (
+          <p
+            className={
+              "message " +
+              (message.startsWith("✅")
+                ? "success"
+                : message.startsWith("❌")
+                ? "error"
+                : "")
+            }
+          >
+            {message}
+          </p>
+        )}
       </form>
     </div>
   );

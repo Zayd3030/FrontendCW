@@ -5,7 +5,7 @@ export default function Login() {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
-    familyId: "family_1", 
+    familyId: "family_1",
   });
 
   const [message, setMessage] = useState("");
@@ -26,7 +26,7 @@ export default function Login() {
       body: JSON.stringify({
         username: formData.username,
         password: formData.password,
-        familyId: formData.familyId,  
+        familyId: formData.familyId,
       }),
     })
       .then((res) => {
@@ -45,60 +45,70 @@ export default function Login() {
 
         localStorage.setItem("user", JSON.stringify(user));
 
-        setMessage("Login successful!");
+        setMessage("✅ Login successful!");
         setTimeout(() => navigate("/events"), 500);
       })
       .catch((err) => {
         console.error("Login error:", err);
-        setMessage("Invalid username, password, or family.");
+        setMessage("❌ Invalid username, password, or family.");
       });
   };
 
   return (
-    <div style={{ padding: "30px" }}>
+      <div className="page">
       <h1>Login</h1>
 
-      <form
-        onSubmit={handleSubmit}
-        style={{ maxWidth: "400px", marginTop: "20px" }}
-      >
-        <label>Username</label>
-        <input
-          name="username"
-          value={formData.username}
-          onChange={handleChange}
-          required
-        />
-
-        <br /><br />
-
-        <label>Password</label>
-        <input
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
-
-        <br /><br />
-
-        <label>Family ID</label>
-        <input
-          name="familyId"
-          value={formData.familyId}
-          onChange={handleChange}
-          required
-        />
-        <div style={{ fontSize: "0.85rem", color: "#555", marginTop: "4px" }}>
-          Use the same Family ID you registered with
+      <form onSubmit={handleSubmit}>
+        <div className="field">
+          <label>Username</label>
+          <input
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
+            required
+          />
         </div>
 
-        <br />
+        <div className="field">
+          <label>Password</label>
+          <input
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div className="field">
+          <label>Family ID</label>
+          <input
+            name="familyId"
+            value={formData.familyId}
+            onChange={handleChange}
+            required
+          />
+          <div style={{ fontSize: "0.85rem", color: "#555", marginTop: "4px" }}>
+            Use the same Family ID you registered with.
+          </div>
+        </div>
 
         <button type="submit">Login</button>
 
-        {message && <p style={{ marginTop: "10px" }}>{message}</p>}
+        {message && (
+          <p
+            className={
+              "message " +
+              (message.startsWith("✅")
+                ? "success"
+                : message.startsWith("❌")
+                ? "error"
+                : "")
+            }
+          >
+            {message}
+          </p>
+        )}
       </form>
     </div>
   );
