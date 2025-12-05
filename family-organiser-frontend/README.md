@@ -68,6 +68,7 @@ Follow these steps to install and run the project.
 ```bash
 git clone https://github.com/Zayd3030/FrontendCW.git
 cd FEWD2526-cwbackend-update
+```
 
 ## 2️⃣ Install Dependencies
 Inside the backend folder, install all required dependencies:
