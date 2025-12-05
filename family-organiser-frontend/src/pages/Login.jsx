@@ -5,6 +5,7 @@ export default function Login() {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
+    familyId: "family_1", 
   });
 
   const [message, setMessage] = useState("");
@@ -22,7 +23,11 @@ export default function Login() {
     fetch("http://localhost:3002/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
+      body: JSON.stringify({
+        username: formData.username,
+        password: formData.password,
+        familyId: formData.familyId,  
+      }),
     })
       .then((res) => {
         if (!res.ok) {
@@ -31,7 +36,6 @@ export default function Login() {
         return res.json();
       })
       .then((data) => {
-        // data = { success, token, expiresIn, username, userrole, userfamily }
         const user = {
           username: data.username,
           userrole: data.userrole,
@@ -39,16 +43,14 @@ export default function Login() {
           token: data.token,
         };
 
-        // Save to localStorage so other pages can use it
         localStorage.setItem("user", JSON.stringify(user));
 
         setMessage("Login successful!");
-        // Go to events page after a moment
         setTimeout(() => navigate("/events"), 500);
       })
       .catch((err) => {
         console.error("Login error:", err);
-        setMessage("Invalid username or password.");
+        setMessage("Invalid username, password, or family.");
       });
   };
 
@@ -80,6 +82,19 @@ export default function Login() {
         />
 
         <br /><br />
+
+        <label>Family ID</label>
+        <input
+          name="familyId"
+          value={formData.familyId}
+          onChange={handleChange}
+          required
+        />
+        <div style={{ fontSize: "0.85rem", color: "#555", marginTop: "4px" }}>
+          Use the same Family ID you registered with
+        </div>
+
+        <br />
 
         <button type="submit">Login</button>
 
