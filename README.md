@@ -131,7 +131,6 @@ git push -u origin main
 
 This project includes extra features not explicitly required in the coursework brief:
 
----
 
 ### 🔐 Improved Authentication
 - Password validation (min 6 characters + at least one number)
