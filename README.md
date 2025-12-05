@@ -1,47 +1,76 @@
-# 🗓️ Family Organiser – FEWD Coursework CW1
+# 🗓️ Family Organiser – Coursework CW1
 
-This project is part of the **Front-End Web Development (FEWD) 2025/26 Coursework CW1** assessment.  
-It is a **React-based Single Page Application (SPA)** connected to a **Node.js / Express backend API**.  
-The system functions as a **Family Organiser**, allowing users to register, log in, and manage family events such as appointments, outings, and activities.
+This project is the **Frontend Web Development CW1**.  
+It is a **React Single Page Application (SPA)** with a **Node.js / Express backend API** and a simple **NeDB database**.  
+The system acts as a **Family Organiser** which allows users to register, log in, and manage family events.
 
 ---
 
 ## 📦 Features
 
-- User registration and login system  
-- Add, edit, and delete family events  
-- Search and filter events by name or category  
-- Responsive interface using React and Bootstrap  
-- Data persistence via a Node/Express backend  
-- JSON-based REST API communication between frontend and backend  
+### 👤 User System
+- User registration with password validation  
+- Login system with localStorage session saving  
+- Each user belongs to a **specific family group**  
+- Users can only view events belonging to *their* family  
+- Only event creators can edit or delete their own events  
+- Administrators have permission to create events
+
+### 📅 Event Management
+- Add new events with:
+  - Event name  
+  - Date  
+  - Start + end time  
+  - Location  
+  - Required items  
+- Edit existing events  
+- Delete events  
+- Events are automatically tagged with:
+  - Organiser username  
+  - Organiser family ID  
+
+### 🔎 Searching & Filtering
+- Search events by:
+  - Name  
+  - Location  
+  - Organiser  
+  - Date  
+- Clean and simple UI layout  
+- Success & error messages with styled feedback  
+
+### ⚙️ Backend Functionality
+- REST API built using Express  
+- NeDB storage (`users.db`, `events.db`)  
+- Secure password hashing with salts  
+- Family-based access control for all endpoints  
 
 ---
 
 ## 🛠️ Tech Stack
 
 | Layer | Technology |
-|-------|-------------|
-| **Frontend** | React (Vite), JavaScript, Bootstrap |
+|-------|------------|
+| **Frontend** | React (Vite), JavaScript |
 | **Backend** | Node.js, Express.js |
-| **Data** | JSON (local data or API endpoint) |
-| **Tools** | npm, Git, ESLint, Prettier |
+| **Database** | NeDB (.db file storage) |
+| **Tools** | npm, Git, Vite |
 
 ---
 
-## 🚀 Setup Instructions
+# 🚀 Setup Instructions
 
-Follow these steps carefully to set up the project on your local machine.
+Follow these steps to install and run the project.
 
-### 1️⃣ Clone the Repository
+---
+
+## 1️⃣ Clone the Repository
+
 ```bash
 git clone https://github.com/Zayd3030/FrontendCW.git
 cd FEWD2526-cwbackend-update
+```
 
-## 🚀 Setup Instructions (Steps 2–5)
-
-Follow these steps to install, run, and upload your Family Organiser project.
-
-### 2️⃣ Install Dependencies
+## 2️⃣ Install Dependencies
 Inside the backend folder, install all required dependencies:
 
 ```bash
@@ -57,19 +86,8 @@ Start the backend server locally:
 node index.js
 ```
 
-You should see:
-```
-Server started on port 3001. Ctrl^c to quit.
-```
-
-Now open your browser and visit:
-```
-http://localhost:3001/food
-```
-If JSON data appears, your backend is running correctly ✅
-
 ### 4️⃣ Set Up and Run the Frontend
-Navigate to your React frontend project (created with Vite):
+Navigate to your React frontend folder:
 
 ```bash
 cd ../family-organiser-frontend
@@ -88,7 +106,7 @@ Ensure both servers are active:
 - **Backend:** http://localhost:3001  
 - **Frontend:** http://localhost:5173  
 
-If the frontend fetches data from the backend successfully, your setup is complete.
+If the frontend fetches data from the backend successfully then the setup is complete.
 
 ### 5️⃣ Push Your Project to GitHub
 Once everything works, commit and push your code:
@@ -100,23 +118,42 @@ git branch -M main
 git push -u origin main
 ```
 
-You can now access your repository on GitHub and share the project link.
-
 ---
 
 ## 👤 Author
 
 **Zayd Hussain**  
-BSc Computer Science  
-Glasgow Caledonian University  
-2025/26  
+**Student ID: S2212398**
 
 ---
 
-## ⚠️ Disclaimer
+## ✨ Added Features
 
-This project was developed as part of the **FEWD2526 – Front-End Web Development Coursework (CW1)**.  
-All source code and design decisions were produced solely for **academic purposes** under Glasgow Caledonian University’s coursework requirements.  
-Do not reuse, resubmit, or redistribute this work outside its intended educational context.
+This project includes extra features not explicitly required in the coursework brief:
 
+---
+
+### 🔐 Improved Authentication
+- Password validation (min 6 characters + at least one number)
+- Styled feedback messages for success / error states
+- LocalStorage session persistence for logged in users
+
+---
+
+### 👨‍👩‍👦 Family Group Enforcement
+- Users are linked to a unique **familyId**
+- Users can only view or manage events from *their own family*
+
+---
+
+### 🛠️ Event Ownership
+- All events are automatically tagged with:
+  - **Organiser username**
+  - **Organiser family ID**
+
+---
+
+### 🎨 UI/UX Enhancements
+- Global spacing and layout improvements using a `.page` wrapper
+- Styled success and error message system (`.message.success` / `.message.error`)
 
