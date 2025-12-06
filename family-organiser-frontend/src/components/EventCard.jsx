@@ -1,53 +1,43 @@
-export default function EventCard({ event }) {
-  // Build the Google Maps search URL
-  const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-    event.location
-  )}`;
-
+export default function EventCard({ event, children }) {
   return (
-    <div className="event-card">
-      <h3>{event.event}</h3>
+    <div className="card mb-4 shadow-sm">
+      <div className="card-body">
+        <h4 className="card-title">{event.event}</h4>
 
-      <p>
-        <strong>Date:</strong> {event.date}
-      </p>
+        <p className="card-text mb-1">
+          <strong>Date:</strong> {event.date}
+        </p>
+        <p className="card-text mb-1">
+          <strong>Time:</strong> {event.startTime} – {event.endTime}
+        </p>
+        <p className="card-text mb-1">
+          <strong>Location:</strong> {event.location}
+        </p>
+        <p className="card-text mb-1">
+          <strong>Required Items:</strong>{" "}
+          {Array.isArray(event.requiredItems)
+            ? event.requiredItems.join(", ")
+            : event.requiredItems}
+        </p>
+        <p className="card-text mb-2">
+          <strong>Organiser:</strong> {event.organiser}
+        </p>
 
-      <p>
-        <strong>Time:</strong> {event.startTime} – {event.endTime}
-      </p>
+        {/* View on Map button */}
+        <button
+          type="button"
+          className="btn btn-sm btn-primary mb-2"
+          onClick={() => {
+            const query = encodeURIComponent(event.location || "");
+            window.open(`https://www.google.com/maps/search/?api=1&query=${query}`, "_blank");
+          }}
+        >
+          <i className="bi bi-geo-alt-fill me-1"></i>
+          View on Map
+        </button>
 
-      <p>
-        <strong>Location:</strong> {event.location}
-      </p>
-
-      <p>
-        <strong>Required Items:</strong>{" "}
-        {Array.isArray(event.requiredItems)
-          ? event.requiredItems.join(", ")
-          : event.requiredItems}
-      </p>
-
-      <p>
-        <strong>Organiser:</strong> {event.organiser}
-      </p>
-
-      {/* View on Map Button */}
-      <a
-        href={mapUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        style={{
-          marginTop: "10px",
-          display: "inline-block",
-          padding: "6px 12px",
-          backgroundColor: "#0d6efd",
-          color: "white",
-          borderRadius: "6px",
-          textDecoration: "none",
-        }}
-      >
-        📍 View on Map
-      </a>
+        {children && <div className="mt-3 d-flex gap-2">{children}</div>}
+      </div>
     </div>
   );
 }

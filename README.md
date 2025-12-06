@@ -48,7 +48,7 @@ This project is the **Frontend Web Development CW1**. It is a **React Single Pag
 
 | Layer | Technology |
 |-------|------------|
-| **Frontend** | React (Vite), JavaScript |
+| **Frontend** | React (Vite), JavaScript, Bootstrap |
 | **Backend** | Node.js, Express.js |
 | **Database** | NeDB (.db file storage) |
 | **Tools** | npm, Git, Vite |

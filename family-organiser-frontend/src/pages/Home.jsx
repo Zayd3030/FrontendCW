@@ -20,6 +20,21 @@ export default function Home() {
         can create and manage events, while all members can view what’s happening
         in their shared family schedule.
       </p>
+      
+      {/* Login and Resgisters */}
+      <div className="text-center mt-5">
+        <a href="/login" className="btn btn-primary btn-lg mx-2">
+          <i className="bi bi-box-arrow-in-right" style={{ marginRight: "8px" }}></i>
+          Login
+        </a>
+
+        <a href="/register" className="btn btn-outline-primary btn-lg mx-2">
+          <i className="bi bi-person-plus" style={{ marginRight: "8px" }}></i>
+          Register
+        </a>
+      </div>
+
+
 
       {/* Features Section */}
       <div

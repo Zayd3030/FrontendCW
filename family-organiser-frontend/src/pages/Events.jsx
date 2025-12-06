@@ -107,56 +107,63 @@ export default function EventsPage() {
 
 
   return (
-    <div className="page">
-      <h1>Family Events</h1>
-      <p>You have {filteredEvents.length} upcoming events</p>
+  <div className="container py-4">
+    <h1 className="mb-1">Family Events</h1>
+    <p className="text-muted">
+      You have {events.length} upcoming events
+    </p>
 
-      {currentUser && (
-        <p>
-          Viewing events for family:{" "}
-          <strong>{currentUser.userfamily}</strong>
-        </p>
-      )}
+    {currentUser && (
+      <p>
+        Viewing events for family:{" "}
+        <strong>{currentUser.userfamily}</strong>
+      </p>
+    )}
 
-      {/* Search bar */}
-      <div className="search-bar">
-        <label>Search events:</label>
-        <input
-          type="text"
-          value={searchTerm}
-          placeholder="Search"
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </div>
-
-      {/* Event List */}
-      {filteredEvents.length === 0 ? (
-        <p>No events match your search.</p>
-      ) : (
-        <div className="event-list">
-          {filteredEvents.map((ev) => (
-            <div key={ev._id}>
-              <EventCard event={ev} />
-
-              {currentUser && ev.organiser === currentUser.username && (
-                <div style={{ marginTop: "8px", display: "flex", gap: "8px" }}>
-                  <button onClick={() => navigate(`/edit-event/${ev._id}`)}>
-                    Edit
-                  </button>
-
-                  <button
-                    className="secondary"
-                    style={{ backgroundColor: "red", color: "white" }}
-                    onClick={() => handleDelete(ev._id)}
-                  >
-                    Delete
-                  </button>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      )}
+    {/* Search box */}
+    <div className="mb-3">
+      <label className="form-label">
+        Search events:
+      </label>
+      <input
+        type="text"
+        className="form-control"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        placeholder="Search by name, location, organiser, or date"
+      />
     </div>
+
+    {filteredEvents.length === 0 ? (
+      <p>No events match your search.</p>
+    ) : (
+      filteredEvents.map((ev) => (
+        <EventCard key={ev._id} event={ev}>
+          {currentUser && ev.organiser === currentUser.username && (
+            <>
+              <button
+                type="button"
+                className="btn btn-sm btn-outline-primary"
+                onClick={() => navigate(`/edit-event/${ev._id}`)}
+              >
+                <i className="bi bi-pencil-square me-1"></i>
+                Edit
+              </button>
+
+              <button
+                type="button"
+                className="btn btn-sm btn-danger"
+                onClick={() => handleDelete(ev._id)}
+              >
+                <i className="bi bi-trash me-1"></i>
+                Delete
+              </button>
+            </>
+          )}
+        </EventCard>
+      ))
+    )}
+  </div>
+
   );
 }
