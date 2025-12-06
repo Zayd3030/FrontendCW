@@ -130,7 +130,7 @@ export default function EventsPage() {
         className="form-control"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        placeholder="Search by name, location, organiser, or date"
+        placeholder="Search"
       />
     </div>
 
