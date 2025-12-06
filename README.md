@@ -154,6 +154,7 @@ This project includes extra features not explicitly required in the coursework b
 ### 🎨 UI/UX Enhancements
 - Global spacing and layout improvements using a `.page` wrapper
 - Styled success and error message system (`.message.success` / `.message.error`)
+- Bootstrap intergration w/ Bootstrap Icons
 
 ---
 
