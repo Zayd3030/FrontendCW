@@ -1,8 +1,6 @@
 # 🗓️ Family Organiser – Coursework CW1
 
-This project is the **Frontend Web Development CW1**.  
-It is a **React Single Page Application (SPA)** with a **Node.js / Express backend API** and a simple **NeDB database**.  
-The system acts as a **Family Organiser** which allows users to register, log in, and manage family events.
+This project is the **Frontend Web Development CW1**. It is a **React Single Page Application (SPA)** with a **Node.js / Express backend API** and a simple **NeDB database**. The system acts as a **Family Organiser** which allows users to register, log in, and manage family events.
 
 ---
 
@@ -11,8 +9,8 @@ The system acts as a **Family Organiser** which allows users to register, log in
 ### 👤 User System
 - User registration with password validation  
 - Login system with localStorage session saving  
-- Each user belongs to a **specific family group**  
-- Users can only view events belonging to *their* family  
+- Each user belongs to a specific family group  
+- Users can only view events belonging to their family  
 - Only event creators can edit or delete their own events  
 - Administrators have permission to create events
 
@@ -79,14 +77,14 @@ npm install
 
 This installs all necessary Node modules listed in `package.json` (including Express and CORS).
 
-### 3️⃣ Run the Backend Server
+## 3️⃣ Run the Backend Server
 Start the backend server locally:
 
 ```bash
 node index.js
 ```
 
-### 4️⃣ Set Up and Run the Frontend
+## 4️⃣ Set Up and Run the Frontend
 Navigate to your React frontend folder:
 
 ```bash
@@ -108,7 +106,7 @@ Ensure both servers are active:
 
 If the frontend fetches data from the backend successfully then the setup is complete.
 
-### 5️⃣ Push Your Project to GitHub
+## 5️⃣ Push Your Project to GitHub
 Once everything works, commit and push your code:
 
 ```bash
@@ -149,7 +147,8 @@ This project includes extra features not explicitly required in the coursework b
 - All events are automatically tagged with:
   - **Organiser username**
   - **Organiser family ID**
-
+- Event Page shows event counter
+- Add Event Redirects to Login when not logged in
 ---
 
 ### 🎨 UI/UX Enhancements

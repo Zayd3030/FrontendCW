@@ -97,15 +97,19 @@ export default function EventsPage() {
 
   if (error)
     return (
-      <div>
+      <div className="page" style={{ textAlign: "left" }}>
         <p className="message error">{error}</p>
-        <button onClick={() => navigate("/login")}>Go to Login</button>
+        <button onClick={() => navigate("/login")} className="btn btn-primary">
+          Go to Login
+        </button>
       </div>
     );
+
 
   return (
     <div className="page">
       <h1>Family Events</h1>
+      <p>You have {filteredEvents.length} upcoming events</p>
 
       {currentUser && (
         <p>
