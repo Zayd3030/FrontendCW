@@ -155,3 +155,8 @@ This project includes extra features not explicitly required in the coursework b
 - Global spacing and layout improvements using a `.page` wrapper
 - Styled success and error message system (`.message.success` / `.message.error`)
 
+---
+
+### 🗺 Google Maps Integration
+- Each event now includes a “View on Map” button
+- The event’s location is automatically passed to Google Maps using a search query.
