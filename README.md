@@ -59,7 +59,7 @@ Follow these steps to install and run the project.
 
 ```bash
 git clone https://github.com/Zayd3030/FrontendCW.git
-cd FEWD2526-cwbackend-update
+cd FrontendCW
 ```
 
 ## 2️⃣ Install Dependencies
@@ -77,6 +77,7 @@ Start the backend server locally:
 ```bash
 node index.js
 ```
+Upon first run you may get an error in that case run node index.js again
 
 ## 4️⃣ Set Up and Run the Frontend
 Navigate to your React frontend folder:
