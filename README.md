@@ -1,6 +1,6 @@
 # 🗓️ Family Organiser – Coursework CW1
 
-This project is the **Frontend Web Development CW1**. It is a **React Single Page Application (SPA)** with a **Node.js / Express backend API** and a simple **NeDB database**. The system acts as a **Family Organiser** which allows users to register, log in, and manage family events.
+This project is the **Frontend Web Development CW1**. It is a **React Single Page Application (SPA)** with a **Node.js / Express backend API** and a simple **NeDB database**. The system acts as a **Family Organiser** which allows users to register, log in and manage family events.
 
 ---
 
@@ -23,9 +23,6 @@ This project is the **Frontend Web Development CW1**. It is a **React Single Pag
   - Required items  
 - Edit existing events  
 - Delete events  
-- Events are automatically tagged with:
-  - Organiser username  
-  - Organiser family ID  
 
 ### 🔎 Searching & Filtering
 - Search events by:
@@ -33,14 +30,11 @@ This project is the **Frontend Web Development CW1**. It is a **React Single Pag
   - Location  
   - Organiser  
   - Date  
-- Clean and simple UI layout  
-- Success & error messages with styled feedback  
 
 ### ⚙️ Backend Functionality
 - REST API built using Express  
 - NeDB storage (`users.db`, `events.db`)  
 - Secure password hashing with salts  
-- Family-based access control for all endpoints  
 
 ---
 
@@ -101,7 +95,7 @@ http://localhost:5173/
 Open that link in your browser to view your React app.  
 Ensure both servers are active:
 
-- **Backend:** http://localhost:3001  
+- **Backend:** http://localhost:3002  
 - **Frontend:** http://localhost:5173  
 
 If the frontend fetches data from the backend successfully then the setup is complete.
@@ -139,7 +133,7 @@ This project includes extra features not explicitly required in the coursework b
 
 ### 👨‍👩‍👦 Family Group Enforcement
 - Users are linked to a unique **familyId**
-- Users can only view or manage events from *their own family*
+- Users can only view or manage events from their own family
 
 ---
 
@@ -152,9 +146,9 @@ This project includes extra features not explicitly required in the coursework b
 ---
 
 ### 🎨 UI/UX Enhancements
-- Global spacing and layout improvements using a `.page` wrapper
-- Styled success and error message system (`.message.success` / `.message.error`)
-- Bootstrap intergration w/ Bootstrap Icons
+- Global styling and layout improvements using a `.page` wrapper
+- Use of Icons
+- Bootstrap intergration
 
 ---
 
