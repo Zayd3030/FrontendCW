@@ -167,7 +167,7 @@ export default function EventsPage() {
         >
           <strong>Today&apos;s Weather (Glasgow):</strong>{" "}
           <span style={{ marginRight: "6px" }}>{emoji}</span>
-          {label} – {weather.temperature}°C, wind {weather.windspeed} km/h
+          {label}: {weather.temperature}°C, wind {weather.windspeed} km/h
         </div>
       );
     })()}
