@@ -9,6 +9,9 @@ export default function EventsPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentUser, setCurrentUser] = useState(null);
 
+  const [weather, setWeather] = useState(null);
+  const [weatherError, setWeatherError] = useState(null);
+
   const navigate = useNavigate();
 
   // Delete event
@@ -80,6 +83,47 @@ export default function EventsPage() {
       });
   }, []);
 
+  useEffect(() => {
+    // Glasgow weather
+    const url =
+      "https://api.open-meteo.com/v1/forecast?latitude=55.86&longitude=-4.25&current_weather=true";
+
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && data.current_weather) {
+          setWeather({
+            temperature: data.current_weather.temperature,
+            windspeed: data.current_weather.windspeed,
+            code: data.current_weather.weathercode,
+          });
+        } else {
+          setWeatherError("No weather data available.");
+        }
+      })
+      .catch((err) => {
+        console.error("Weather fetch error:", err);
+        setWeatherError("Could not load weather.");
+      });
+  }, []);
+
+    // Map Open-Meteo weather codes to a simple emoji + label
+  const getWeatherIcon = (code) => {
+    if (code === 0) return { emoji: "☀️", label: "Clear sky" };
+    if (code === 1 || code === 2) return { emoji: "🌤️", label: "Mostly sunny" };
+    if (code === 3) return { emoji: "☁️", label: "Cloudy" };
+    if (code === 45 || code === 48) return { emoji: "🌫️", label: "Foggy" };
+    if (code >= 51 && code <= 57) return { emoji: "🌦️", label: "Drizzle" };
+    if ((code >= 61 && code <= 67) || (code >= 80 && code <= 82))
+      return { emoji: "🌧️", label: "Rain" };
+    if ((code >= 71 && code <= 77) || (code >= 85 && code <= 86))
+      return { emoji: "❄️", label: "Snow" };
+    if (code >= 95) return { emoji: "⛈️", label: "Thunderstorm" };
+
+    return { emoji: "📊", label: "Mixed conditions" };
+  };
+
+
   // Filter events
   const filteredEvents = events.filter((ev) => {
     if (!searchTerm.trim()) return true;
@@ -112,6 +156,21 @@ export default function EventsPage() {
     <p className="text-muted">
       You have {events.length} upcoming events
     </p>
+
+    {/* Weather widget */}
+    {weather && (() => {
+      const { emoji, label } = getWeatherIcon(weather.code);
+      return (
+        <div
+          className="alert alert-info py-2 px-3 mb-4"
+          style={{ maxWidth: "560px" }}
+        >
+          <strong>Today&apos;s Weather (Glasgow):</strong>{" "}
+          <span style={{ marginRight: "6px" }}>{emoji}</span>
+          {label} – {weather.temperature}°C, wind {weather.windspeed} km/h
+        </div>
+      );
+    })()}
 
     {currentUser && (
       <p>

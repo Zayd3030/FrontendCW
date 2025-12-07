@@ -123,6 +123,26 @@ git push -u origin main
 
 This project includes extra features not explicitly required in the coursework brief:
 
+### ⛅ Real Time Weather Widget
+- Events page includes live weather widget powered by Open-Meteo API
+- When a user views their family events the app fetches today's weather and displays
+  - Temperature
+  - Wind speed
+  - A corresponding emoji (☀️ 🌧️ ⛅ ❄️)
+- Gives users environmental context that may affect their plans
+```bash
+Today's Weather (Glasgow): ☀️ Clear sky – 12.4°C, wind 3 km/h
+```
+Data is fetched from this API:
+```bash
+https://api.open-meteo.com/v1/forecast?latitude=55.86&longitude=-4.25&current_weather=true
+```
+
+### 🗺 Google Maps Integration
+- Each event now includes a “View on Map” button
+- The event’s location is automatically passed to Google Maps using a search query.
+
+---
 
 ### 🔐 Improved Authentication
 - Password validation (min 6 characters + at least one number)
@@ -149,9 +169,3 @@ This project includes extra features not explicitly required in the coursework b
 - Global styling and layout improvements using a `.page` wrapper
 - Use of Icons
 - Bootstrap intergration
-
----
-
-### 🗺 Google Maps Integration
-- Each event now includes a “View on Map” button
-- The event’s location is automatically passed to Google Maps using a search query.
