@@ -128,6 +128,7 @@ This project includes extra features not explicitly required in the coursework b
 - When a user views their family events the app fetches today's weather and displays
   - Temperature
   - Wind speed
+  - Weather Description
   - A corresponding emoji (☀️ 🌧️ ⛅ ❄️)
 - Gives users environmental context that may affect their plans
 ```bash
